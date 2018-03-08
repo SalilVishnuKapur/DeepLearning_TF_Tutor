@@ -29,7 +29,7 @@ Now this Neural Network saves the memory as it goes on, but in this architecture
 
 4. Long Short Term Memory(LSTM)
 These Neural Networks are for sequential data or time series data. These type of neural networks have a memory for saving the information as they process the data and used this saved memory information to get insights from the data. Like by training a LSTM with the paragraph data one can make a Neural Network model to get the predictions about the next word if we pass this model a single line to process.
-
+Ref :- https://r2rt.com/written-memories-understanding-deriving-and-extending-the-lstm.html 
 
 
 5. Capsule Neural Networks(CNN)
