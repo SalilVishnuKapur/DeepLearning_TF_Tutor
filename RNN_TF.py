@@ -34,8 +34,8 @@ W2 = tf.Variable(np.random.rand(state_size, num_classes),dtype=tf.float32)
 b2 = tf.Variable(np.zeros((1,num_classes)), dtype=tf.float32)
 
 # Unpack columns
-inputs_series = tf.unpack(batchX_placeholder, axis=1)
-labels_series = tf.unpack(batchY_placeholder, axis=1)
+inputs_series = tf.unstack(batchX_placeholder, axis=1)
+labels_series = tf.unstack(batchY_placeholder, axis=1)
 
 # Forward pass
 current_state = init_state
