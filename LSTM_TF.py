@@ -73,36 +73,39 @@ y = tf.placeholder("float", [None, vocab_size])
 weights = {
     'out': tf.Variable(tf.random_normal([n_hidden, vocab_size]))
 }
+
 biases = {
     'out': tf.Variable(tf.random_normal([vocab_size]))
 }
 
-def RNN(x, weights, biases):
 
-    # reshape to [1, n_input]
-    x = tf.reshape(x, [-1, n_input])
+# reshape to [1, n_input]
+x1 = tf.reshape(x, [-1, n_input])
 
-    # Generate a n_input-element sequence of inputs
-    # (eg. [had] [a] [general] -> [20] [6] [33])
-    x = tf.split(x,n_input,1)
+# Generate a n_input-element sequence of inputs
+# (eg. [had] [a] [general] -> [20] [6] [33])
+x1 = tf.split(x1,n_input,1)
 
-    # 2-layer LSTM, each layer has n_hidden units.
-    # Average Accuracy= 95.20% at 50k iter
-    rnn_cell = rnn.MultiRNNCell([rnn.BasicLSTMCell(n_hidden),rnn.BasicLSTMCell(n_hidden)])
+# 2-layer LSTM, each layer has n_hidden units.
+# Average Accuracy= 95.20% at 50k iter
+#rnn_cell = rnn.MultiRNNCell([rnn.BasicLSTMCell(n_hidden),rnn.BasicLSTMCell(n_hidden)])
 
-    # 1-layer LSTM with n_hidden units but with lower accuracy.
-    # Average Accuracy= 90.60% 50k iter
-    # Uncomment line below to test but comment out the 2-layer rnn.MultiRNNCell above
-    # rnn_cell = rnn.BasicLSTMCell(n_hidden)
+# 1-layer LSTM with n_hidden units but with lower accuracy.
+# Average Accuracy= 90.60% 50k iter
+# Uncomment line below to test but comment out the 2-layer rnn.MultiRNNCell above
+# This is just 1 cell LSTM which is more like a ANN with 1 RNN cell. Refer to the below article and understand the Vanilla RNN cell for it's better understanding 
+# Ref :- https://r2rt.com/written-memories-understanding-deriving-and-extending-the-lstm.html 
+rnn_cell = rnn.BasicLSTMCell(n_hidden)
 
-    # generate prediction
-    outputs, states = rnn.static_rnn(rnn_cell, x, dtype=tf.float32)
+# generate prediction
+# Before the output layer
+outputs, states = rnn.static_rnn(rnn_cell, x1, dtype=tf.float32)
 
-    # there are n_input outputs but
-    # we only want the last output
-    return tf.matmul(outputs[-1], weights['out']) + biases['out']
+# there are n_input outputs but
+# we only want the last output
+pred = tf.matmul(outputs[-1], weights['out']) + biases['out']
 
-pred = RNN(x, weights, biases)
+#pred = RNN(x, weights, biases)
 
 # Loss and optimizer
 cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=pred, labels=y))
@@ -134,12 +137,18 @@ with tf.Session() as session:
         symbols_in_keys = [ [dictionary[ str(training_data[i])]] for i in range(offset, offset+n_input) ]
         symbols_in_keys = np.reshape(np.array(symbols_in_keys), [-1, n_input, 1])
 
+        #print(symbols_in_keys)
+
         symbols_out_onehot = np.zeros([vocab_size], dtype=float)
         symbols_out_onehot[dictionary[str(training_data[offset+n_input])]] = 1.0
         symbols_out_onehot = np.reshape(symbols_out_onehot,[1,-1])
 
+        #print(symbols_out_onehot)
+
         _, acc, loss, onehot_pred = session.run([optimizer, accuracy, cost, pred], \
                                                 feed_dict={x: symbols_in_keys, y: symbols_out_onehot})
+        #print(onehot_pred)        
+
         loss_total += loss
         acc_total += acc
         if (step+1) % display_step == 0:
