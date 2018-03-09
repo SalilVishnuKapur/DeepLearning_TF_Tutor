@@ -1,4 +1,4 @@
-# DeepLearning_TF_Tutor
+# MachineLearning-DeepLearning_Tutor
 This is a project for Machine Learning practitioners who want to learn to write the Deep Learning Algorithms using tensorflow. 
 
 The focus for this tutorial is to teach how to implement the following Deep learning models using tensorflow:-
