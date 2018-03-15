@@ -1,9 +1,8 @@
 # MachineLearning-DeepLearning_Tutor
 This is a project for Machine Learning practitioners who want to advance their ML skills to the extent where they can easily gain Hands On Experience. It is divided into 3 main modules which basically define the  :-
 
-##################
-# Neural Networks#
-##################
+
+# Neural Networks
 
 The focus for this module is to teach how to implement the following Deep learning models using tensorflow:-
 
@@ -39,9 +38,8 @@ Ref :- https://r2rt.com/written-memories-understanding-deriving-and-extending-th
 5. Capsule Neural Networks(CNN)
 These are the Neural Networks which check the features of images so that there order is also correct, rather than just looking at the images for the features. For the example we can think about a situtaion where the image with the eyebrows, nose or lips are displaced, in this case capsule network will let you know that the image is something else and not a male or female.
 
-###########
-#Ensembles# 
-###########
+
+# Ensembles
 
 The focus of this module is to teach how to implement these algorithms from scratch following the ensemble approach :-
 
@@ -52,9 +50,8 @@ A decision tree is a decision support tool that uses a tree-like graph or model 
 1. Random Forest
 Random forests or random decision forests are an ensemble learning method for classification, regression and other tasks, that operate by constructing a multitude of decision trees at training time and outputting the class that is the mode of the classes (classification) or mean prediction (regression) of the individual trees.
 
-#######################
-#Validation Algorithms#
-#######################
+
+# Validation Algorithms
 
 These algorithms are to validate how good is the model :-
 
